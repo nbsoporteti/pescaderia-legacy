@@ -1,0 +1,47 @@
+REPARAR ACCESO A PESCADERIA (DNS ISP)
+=====================================
+
+Para usuarios con error:
+  DNS_PROBE_FINISHED_NXDOMAIN
+  o "no se puede acceder al sitio"
+
+ARCHIVOS
+--------
+  fix-dns-pescaderia.bat   <- Doble clic (pedirá permiso de administrador)
+  fix-dns-pescaderia.ps1   <- Mismo script (uso técnico)
+
+QUE HACE
+--------
+  1. Pone DNS 8.8.8.8 y 1.1.1.1 en la red activa (Wi-Fi / Ethernet)
+  2. Agrega respaldo en archivo hosts -> 177.7.58.246
+  3. Limpia caché DNS
+  4. Comprueba que pescaderia.nbsoporteti.com resuelva
+
+COMO DISTRIBUIR A MUCHOS USUARIOS
+---------------------------------
+  - Enviar por WhatsApp / correo el .bat (o ZIP con ambos archivos)
+  - Clic derecho -> Ejecutar como administrador
+  - O doble clic y aceptar "Sí" en el aviso de Windows
+
+URL DESPUES DE EJECUTAR
+-----------------------
+  https://pescaderia.nbsoporteti.com/login.php
+
+REVERTIR DNS AUTOMATICO DEL ISP (opcional)
+------------------------------------------
+  Configuración de red -> IPv4 -> Obtener DNS automáticamente
+
+  En CMD como admin:
+  netsh interface ipv4 set dns name="Wi-Fi 2" dhcp
+  (cambiar "Wi-Fi 2" por el nombre de su adaptador)
+
+REVERTIR HOSTS (opcional)
+------------------------
+  Editar C:\Windows\System32\drivers\etc\hosts
+  Borrar la línea con:
+  177.7.58.246 pescaderia.nbsoporteti.com
+
+NOTA
+----
+  El servidor está bien; el problema es el DNS de algunos proveedores
+  (ej. Movistar/Telefónica en Chile).

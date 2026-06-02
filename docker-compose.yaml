@@ -1,0 +1,54 @@
+# Coolify: recurso Docker Compose → este archivo en la raíz del repo.
+# Dominio: pescaderia.nbsoporteti.com (servicio web → Domains)
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-pescaderia}
+      MYSQL_USER: ${MYSQL_USER:-pescaderia}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - pescaderia-legacy-db:/var/lib/mysql
+    networks:
+      - internal
+    healthcheck:
+      test: ['CMD', 'healthcheck.sh', '--connect', '--innodb_initialized']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-u207708227_pesquera}
+      DB_USER: ${MYSQL_USER:-pescaderia}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - pescaderia-legacy-html:/var/www/html
+    networks:
+      - internal
+      - coolify
+    expose:
+      - '80'
+
+networks:
+  internal:
+    name: pescaderia-legacy-internal
+  coolify:
+    external: true
+    name: coolify
+
+volumes:
+  pescaderia-legacy-db:
+    name: pescaderia-legacy-db
+  pescaderia-legacy-html:
+    name: pescaderia-legacy-html
