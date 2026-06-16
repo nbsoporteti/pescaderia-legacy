@@ -20,7 +20,7 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
     <!-- <link rel="icon" href="<?=$base_home?>assets/img/geret_2.ico" type="image/svg+xml" /> -->
     <meta name="theme-color" content="#ffffff">
     <link href="<?=$base_home?>css/style.css?v=1.0" rel="stylesheet">
-    <link id="pes-ui-css" href="<?=$base_home?>css/pescaderia-ui.css?v=2.2" rel="stylesheet">
+    <link id="pes-ui-css" href="<?=$base_home?>css/pescaderia-ui.css?v=2.3" rel="stylesheet">
     <link href="<?=$base_home?>css/pes-theme-toggle.css?v=1.1" rel="stylesheet">
     <link href="<?=$base_home?>css/pes-collapse.css?v=1.1" rel="stylesheet">
     <script>
@@ -50,7 +50,7 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
   </style>
   </head>
   <body class="c-app">
-<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-hide c-sidebar-lg-show" id="sidebar">
+<div class="c-sidebar c-sidebar-light c-sidebar-fixed c-sidebar-lg-hide c-sidebar-lg-show" id="sidebar">
     <!-- <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-hide" id="sidebar"> -->
       <div class="c-sidebar-brand d-lg-down-none">SISTEMA
         <!-- <img src="<?=$base_home?>assets/img/logo_geret.png" style="width: 100px;height:40px;" alt="Geret" /> -->
