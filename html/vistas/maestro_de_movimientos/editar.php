@@ -98,12 +98,15 @@
                                 </select>
                             </div>
 
-                            <?php if($tipo != 3){ ?>
+                            <?php if($tipo != 3){
+                                // Movimiento de trabajador (proveedor 0/NULL): no exigir proveedor ni embarcacion.
+                                $option_proveedor = ($proveedor == 0 || $proveedor === null) ? "disabled" : "required";
+                            ?>
                             <div class="form-group col-lg-3">
                                 <label for="proveedor" class="text-gray-600">Proveedor</label>
-                                <select class="form-control" name="proveedor" id="proveedor" required>
+                                <select class="form-control" name="proveedor" id="proveedor" <?php echo $option_proveedor; ?>>
                                     <option selected value="0">Seleccionar</option>
-                                    <?php 
+                                    <?php
                                     $sql_proveedores = "SELECT * FROM proveedores WHERE estado = 1 AND eliminado = 0";
                                     $resultado_proveedores = mysqli_query($connect, $sql_proveedores);
                                     while ($row = mysqli_fetch_assoc($resultado_proveedores)) {
@@ -116,7 +119,7 @@
 
                             <div class="form-group col-lg-3">
                                 <label for="embarcacion2" class="text-gray-600">Embarcación</label>
-                                <select class="form-control" name="embarcacion2" id="embarcacion2" required>
+                                <select class="form-control" name="embarcacion2" id="embarcacion2" <?php echo $option_proveedor; ?>>
                                     <option selected value="0">Seleccionar</option>
                                     <?php 
                                     $sql_embarcacion2 = "
