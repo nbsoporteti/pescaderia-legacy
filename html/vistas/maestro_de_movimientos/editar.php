@@ -176,6 +176,7 @@
                         </div>
 
                         <div class="text-center mt-4">
+                            <a href="ver.php" class="btn btn-secondary mr-2">Volver</a>
                             <button type="button" class="btn btn-primary" id="guardar">Actualizar movimiento</button>
                         </div>
 
@@ -669,8 +670,8 @@
                                     title: 'Correcto',
                                     text: data.message,
                                 }).then(() => {
-                                    // Recargar la página después de iniciar la descarga
-                                    location.reload();
+                                    // Volver al listado de movimientos tras editar
+                                    window.location.href = 'ver.php';
                                 });
                             } else {
                                 Swal.fire('Error', data.message, 'error');
