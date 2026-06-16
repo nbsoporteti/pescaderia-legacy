@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $apellido = mysqli_real_escape_string($connect, $_POST['apellido']);
     $correo = mysqli_real_escape_string($connect, $_POST['correo']);
     $rut = mysqli_real_escape_string($connect, $_POST['rut']);
-    $password = mysqli_real_escape_string($connect, md5($_POST['password']));
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // bcrypt (antes era md5)
     $id_rol = (int)$_POST['id_rol'];
 
     $query = "INSERT INTO usuarios (nombre, apellido, correo, rut, password, id_rol) 

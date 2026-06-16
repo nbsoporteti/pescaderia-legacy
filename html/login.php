@@ -6,31 +6,73 @@ include_once("includes/config.php");
 
 ?>
 
-<?php 
+<?php
 
 require 'includes/db_connect.php';
 
 
 if(isset($_POST['login'])){
-    
+
     $estado = 0;
     $alerta = "";
 
     $rut = $_POST["rut"];
+    $passwordInput = $_POST["password"];
 
-    $password = md5($_POST["password"]);
+    // Consulta preparada: evita inyeccion SQL en el RUT.
+    $stmt = $connect->prepare("SELECT * FROM usuarios WHERE rut = ? LIMIT 1");
+    $stmt->bind_param("s", $rut);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-    $query_validar = "SELECT password FROM usuarios WHERE rut = '$rut' LIMIT 1";
+    if($resultado->num_rows > 0){
 
-    $resultado_validar = mysqli_query($connect, $query_validar)or die( "Error: " . mysqli_error($connect));
+        $row = $resultado->fetch_assoc();
+        $stored = $row["password"];
 
-    $filas = mysqli_fetch_row($resultado_validar);
+        // Verificacion de clave: bcrypt si ya esta migrada; MD5 legacy con upgrade transparente.
+        $ok = false;
+        if (password_verify($passwordInput, $stored)) {
+            $ok = true;
+        } elseif (strlen($stored) === 32 && hash_equals(strtolower($stored), md5($passwordInput))) {
+            $ok = true;
+            // Migracion transparente del hash viejo (MD5) a bcrypt.
+            $nuevoHash = password_hash($passwordInput, PASSWORD_DEFAULT);
+            $up = $connect->prepare("UPDATE usuarios SET password = ? WHERE id_usuario = ?");
+            $up->bind_param("si", $nuevoHash, $row["id_usuario"]);
+            $up->execute();
+            $up->close();
+        }
 
-    if($filas >= 1){
-    
-        $password_bd = $filas[0];
+        if($ok){
 
-        if($password != $password_bd):
+            if($row["estado"] == 2):
+
+                $alerta = "
+                    <div class='alert alert-danger alert-dismissable' style='font-size: 15.5px;'>
+                    <button type='button' class='close' data-dismiss='alert'>&times;</button>
+                    Usuario desactivado.
+                    </div>";
+
+            endif;
+
+            if($row["estado"] == 1):
+
+                session_start();
+
+                $_SESSION["id_usuario"] = $row["id_usuario"];
+                $_SESSION["nombre_usuario"] = $row["nombre"];
+                $_SESSION["apellido_usuario"] = $row["apellido"];
+                $_SESSION["correo_usuario"] = $row["correo"];
+                $_SESSION["id_rol"] = $row["id_rol"];
+                $_SESSION["rut_usuario"] = $row["rut"];
+
+                header("Location: home.php");
+                exit;
+
+            endif;
+
+        }else{
 
             $alerta = "
                 <div class='alert alert-danger alert-dismissable' style='font-size: 15.5px;'>
@@ -38,7 +80,7 @@ if(isset($_POST['login'])){
                     Contraseña incorrecta.
                 </div>";
 
-        endif;
+        }
 
     }else{
 
@@ -50,47 +92,7 @@ if(isset($_POST['login'])){
 
     }
 
-    $query = "SELECT * FROM usuarios WHERE rut = '$rut' AND password = '$password' LIMIT 1";
-    $resultado = mysqli_query($connect, $query)or die( "Error: " . mysqli_error($connect));
-
-    if($resultado->num_rows > 0):
-
-        $row = $resultado->fetch_array(MYSQLI_ASSOC);
-
-        $id_usuario = $row["id_usuario"];
-        $nombre_usuario = $row["nombre"];
-        $apellido_usuario = $row["apellido"];
-        $correo_usuario = $row["correo"];
-        $id_rol = $row["id_rol"];
-        $estado = $row["estado"];
-        $rut = $row["rut"];
-
-            if($estado == 2):
-
-                $alerta = "
-                    <div class='alert alert-danger alert-dismissable' style='font-size: 15.5px;'>
-                    <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                    Usuario desactivado.
-                    </div>";
-
-            endif;
-
-            if($estado == 1):
-
-                session_start();
-
-                $_SESSION["id_usuario"] = $id_usuario;
-                $_SESSION["nombre_usuario"] = $nombre_usuario;
-                $_SESSION["apellido_usuario"] = $apellido_usuario;
-                $_SESSION["correo_usuario"] = $correo_usuario;
-                $_SESSION["id_rol"] = $id_rol;  
-                $_SESSION["rut_usuario"] = $rut;  
-
-                header("Location: home.php");
-
-            endif;
-
-    endif;
+    $stmt->close();
 
 }
 ?>
@@ -120,7 +122,6 @@ if(isset($_POST['login'])){
                                 <h1>Login</h1>
                                 <p class="text-muted">Datos de ingreso</p>
                                 <?php if(isset($_POST['login'])){ echo $alerta; } ?>
-                                <?php if(isset($_GET['correcto'])){ echo $alertax; } ?>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">

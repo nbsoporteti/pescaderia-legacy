@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         id_rol = $id_rol
                     WHERE id_usuario = $id_usuario";
     }else{
-        $password = md5($password);
+        $password = password_hash($password, PASSWORD_DEFAULT); // bcrypt (antes era md5)
         $query = "  UPDATE usuarios 
                     SET nombre = '$nombre', apellido = '$apellido', correo = '$correo', rut = '$rut', 
                         id_rol = $id_rol, password = '$password'

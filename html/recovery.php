@@ -1,65 +1,19 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<?php 
+<?php
 ob_start();
-require 'includes/db_connect.php';
 
-//RECUPERAR CLAVE X EMAIL
+// RECUPERAR CLAVE: la auto-recuperacion publica fue deshabilitada por seguridad
+// (cualquiera con un RUT podia resetear la clave de otro). El reset lo hace un
+// administrador desde el modulo Usuarios.
+$alerta = "";
 if(isset($_POST["recuperarPass"])):
-    
-    $rutt = $_POST["rutt"];
-    $nombreCorreoPass = "SELECT * FROM usuarios WHERE rut = '$rutt' LIMIT 1";
-
-    $resultado = mysqli_query($connect, $nombreCorreoPass)or die( "Error: " . mysqli_error($connect));  
-
-    if(!$resultado):
-        echo "error de bd";
-        $arreglo["data"][] = mysqli_error($connect);
-    else:
-        $filas = $resultado->num_rows;
-        if($filas == 0):
-
-            $alerta = "
-                <div class='alert alert-danger alert-dismissable' style='font-size: 15.5px;'>
-                    <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                    Error, rut de usuario no existe
-                </div>";
-
-        else:
-            $data = mysqli_fetch_assoc($resultado);
-
-            if ($data) {
-                $rut = $data["rut"];
-
-                if ($rut != null) {
-                    $sql = "UPDATE usuarios SET password = MD5(12345) WHERE rut = '$rut'";
-                    $resultado = mysqli_query($connect, $sql) or die("Error: " . mysqli_error($connect));
-
-                    $alerta = "
-                        <div class='alert alert-success' style='font-size: 15.5px;'>
-                            <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                            ¡Correcto!<br>Su nueva contraseña temporal es: <b>12345</b><br>
-                            Le recomendamos cambiar su contraseña temporal a la brevedad.
-                        </div>
-                        <script>
-                            setTimeout(function() {
-                                var boton = document.getElementById('recuperarPass');
-                                if (boton) {
-                                    boton.style.display = 'none';
-                                }
-                                var boton2 = document.getElementById('rutt');
-                                if (boton2) {
-                                    boton2.style.display = 'none';
-                                }
-                            }, 100); // Espera 100ms antes de ocultarlo
-                        </script>
-                    ";
-
-                }
-            }
-
-        endif;
-    endif;
+    $alerta = "
+        <div class='alert alert-info' style='font-size: 15.5px;'>
+            <button type='button' class='close' data-dismiss='alert'>&times;</button>
+            Por seguridad, la recuperaci&oacute;n de contrase&ntilde;a la realiza un administrador.<br>
+            Contacta a un administrador del sistema para restablecer tu clave.
+        </div>";
 endif;
 ?>
 
