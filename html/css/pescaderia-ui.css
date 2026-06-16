@@ -404,6 +404,10 @@ body:not(.pes-sidebar-classic) .c-sidebar .c-sidebar-nav-dropdown-items .c-sideb
 body:not(.pes-sidebar-classic) .pes-sidebar-footer {
   border-top: 1px solid #eef2f6;
 }
+/* Sidebar: solo scroll vertical (quita la barra horizontal) */
+body:not(.pes-sidebar-classic) .c-sidebar .c-sidebar-nav { overflow-x: hidden !important; }
+body:not(.pes-sidebar-classic) .c-sidebar .ps__rail-x { display: none !important; }
+body:not(.pes-sidebar-classic) .c-sidebar .c-sidebar-nav-dropdown-items { overflow-x: hidden; }
 
 body:not(.pes-sidebar-classic) .c-main .btn-primary {
   background: var(--pes-primary);
