@@ -1,0 +1,90 @@
+/* Botón cambio de tema — discreto + transición suave */
+
+body:not(.pes-sidebar-classic) #sidebar.c-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+body:not(.pes-sidebar-classic) #sidebar .c-sidebar-nav {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pes-sidebar-theme-footer,
+.pes-sidebar-footer {
+  flex-shrink: 0;
+}
+
+.pes-theme-toggle-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.35rem 0.55rem !important;
+  border-radius: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #94a3b8;
+  opacity: 0.92;
+  transition: color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.pes-theme-toggle-btn:disabled {
+  cursor: wait;
+  opacity: 0.55;
+}
+
+.pes-theme-toggle-icon {
+  flex: 0 0 0.95rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #94a3b8;
+  opacity: 0.85;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+body.pes-sidebar-classic .pes-theme-toggle-btn,
+body.pes-sidebar-classic .pes-theme-toggle-icon {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+body.pes-sidebar-classic .pes-theme-toggle-btn:hover,
+body:not(.pes-sidebar-classic) .pes-theme-toggle-btn:hover {
+  background: rgba(148, 163, 184, 0.12) !important;
+  color: #64748b !important;
+  opacity: 1;
+}
+
+body.pes-sidebar-classic .pes-theme-toggle-btn:hover .pes-theme-toggle-icon {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+body:not(.pes-sidebar-classic) .pes-theme-toggle-btn:hover .pes-theme-toggle-icon {
+  color: #64748b !important;
+}
+
+/* Transición al cambiar tema */
+.pes-theme-fade-out {
+  opacity: 0.72 !important;
+  transition: opacity 0.22s ease !important;
+}
+
+.pes-theme-fade-in {
+  opacity: 1 !important;
+  transition: opacity 0.22s ease !important;
+}
+
+html.pes-theme-switching,
+html.pes-theme-switching * {
+  pointer-events: none;
+}
+
+html.pes-theme-switching .pes-theme-toggle-btn {
+  pointer-events: auto;
+}

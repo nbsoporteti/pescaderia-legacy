@@ -2,9 +2,11 @@
 .env.*
 !.env.example
 
-html/*
-!html/.gitkeep
-!html/index.php
+# App PHP legado: ahora versionado dentro de html/ (antes era volumen sin trackear).
+# Excepciones que NO van a git:
+html/includes/db_connect.php
+html/**/*.bak*
+html/**/*.log
 
 mysql-init/*
 !mysql-init/.gitkeep

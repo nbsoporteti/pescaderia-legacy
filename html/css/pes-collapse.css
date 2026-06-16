@@ -1,0 +1,226 @@
+/* Contraer / expandir — sidebar, filtros, tarjetas */
+
+.pes-sidebar-footer {
+  flex-shrink: 0;
+  padding: 0.35rem 0.45rem 0.5rem;
+  border-top: 1px solid #e6e9ef;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+body.pes-sidebar-classic .pes-sidebar-footer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.pes-sidebar-action-btn,
+.pes-theme-toggle-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.35rem 0.55rem !important;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #9699a6;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.pes-sidebar-action-btn:hover,
+.pes-theme-toggle-btn:hover {
+  background: #f5f6f8 !important;
+  color: #676879 !important;
+}
+
+body.pes-sidebar-classic .pes-sidebar-action-btn,
+body.pes-sidebar-classic .pes-theme-toggle-btn {
+  color: rgba(255, 255, 255, 0.45) !important;
+}
+
+body.pes-sidebar-classic .pes-sidebar-action-btn:hover,
+body.pes-sidebar-classic .pes-theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.pes-sidebar-action-icon,
+.pes-theme-toggle-icon {
+  flex: 0 0 0.95rem;
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+body.pes-sidebar-is-collapsed .pes-sidebar-action-btn span,
+body.pes-sidebar-is-collapsed .pes-theme-toggle-btn span {
+  display: none;
+}
+
+body.pes-sidebar-is-collapsed .pes-sidebar-action-btn,
+body.pes-sidebar-is-collapsed .pes-theme-toggle-btn {
+  justify-content: center;
+  padding-left: 0.35rem !important;
+  padding-right: 0.35rem !important;
+}
+
+/* Sidebar minimizado — solo iconos (sin letras cortadas) */
+#sidebar.c-sidebar-minimized .c-sidebar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 0 !important;
+  font-size: 0 !important;
+  letter-spacing: 0;
+  overflow: hidden;
+  color: transparent !important;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-brand::after {
+  content: "S";
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #323338;
+}
+
+body.pes-sidebar-classic #sidebar.c-sidebar-minimized .c-sidebar-brand::after {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav-link,
+#sidebar.c-sidebar-minimized .c-sidebar-nav-dropdown-toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 56px !important;
+  min-width: 56px !important;
+  max-width: 56px !important;
+  padding: 0.65rem 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  border-radius: 0 !important;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav-icon {
+  flex: 0 0 auto !important;
+  width: 1.15rem !important;
+  height: 1.15rem !important;
+  min-width: 1.15rem !important;
+  margin: 0 !important;
+  color: #676879 !important;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav-link.c-active .c-sidebar-nav-icon {
+  color: #0073ea !important;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav > .c-sidebar-nav-dropdown > .c-sidebar-nav-dropdown-items,
+#sidebar.c-sidebar-minimized .c-sidebar-nav-dropdown-items .c-sidebar-nav-dropdown-items {
+  display: none !important;
+}
+
+#sidebar.c-sidebar-minimized .c-sidebar-nav > .c-sidebar-nav-item:last-child {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+#sidebar.c-sidebar-minimized .pes-sidebar-footer {
+  padding: 0.25rem 0.2rem 0.45rem;
+  align-items: center;
+}
+
+#sidebar.c-sidebar-minimized .pes-sidebar-action-btn,
+#sidebar.c-sidebar-minimized .pes-theme-toggle-btn {
+  width: 40px !important;
+  min-width: 40px !important;
+  margin: 0 auto;
+  padding: 0.4rem !important;
+}
+
+/* Barra filtros colapsable */
+.pes-filters-collapse-bar {
+  margin-bottom: 0.5rem;
+}
+
+.pes-filters-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: none;
+  background: transparent;
+  padding: 0.25rem 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #676879;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+
+.pes-filters-collapse-btn:hover {
+  color: #323338;
+  background: #f5f6f8;
+}
+
+.pes-filters-collapse-chevron {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  margin-top: -0.15rem;
+  transition: transform 0.15s ease;
+}
+
+.pes-filters-collapse-btn.is-collapsed .pes-filters-collapse-chevron {
+  transform: rotate(-135deg);
+  margin-top: 0.1rem;
+}
+
+.pes-filters-panel.pes-filters-collapsed {
+  display: none !important;
+}
+
+/* Cabecera de tarjeta colapsable */
+.pes-card-header-collapsible {
+  cursor: pointer;
+  user-select: none;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pes-card-header-collapsible .pes-card-collapse-chevron {
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.45;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  margin-left: 0.5rem;
+}
+
+.pes-card-header-collapsible.is-collapsed .pes-card-collapse-chevron {
+  transform: rotate(-135deg);
+}
+
+.pes-card-body.pes-card-body-collapsed {
+  display: none !important;
+}

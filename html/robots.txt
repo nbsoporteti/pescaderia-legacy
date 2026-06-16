@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pescaderia.nbsoporteti.com/sitemap.xml

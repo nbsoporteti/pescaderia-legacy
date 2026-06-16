@@ -1,0 +1,19 @@
+<?php
+
+// Plantilla de conexión a la base de datos.
+// Copiar a db_connect.php y completar con las credenciales reales.
+// db_connect.php está en .gitignore (no se versiona: contiene credenciales).
+
+$localhost = "db";
+$username  = "CHANGEME_USER";
+$password  = "CHANGEME_PASSWORD";
+$dbname    = "CHANGEME_DBNAME";
+
+$connect = new mysqli($localhost, $username, $password, $dbname);
+mysqli_set_charset($connect, "utf8");
+
+if ($connect->connect_error) {
+  die("Connection Failed : " . $connect->connect_error);
+}
+
+?>
