@@ -409,6 +409,22 @@ body:not(.pes-sidebar-classic) .c-sidebar .c-sidebar-nav { overflow-x: hidden !i
 body:not(.pes-sidebar-classic) .c-sidebar .ps__rail-x { display: none !important; }
 body:not(.pes-sidebar-classic) .c-sidebar .c-sidebar-nav-dropdown-items { overflow-x: hidden; }
 
+/* Texto parejo y limpio en TODOS los items (incluso dentro de desplegables abiertos) */
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-link,
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-toggle,
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown.c-show .c-sidebar-nav-link,
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-items .c-sidebar-nav-link {
+  color: #334155 !important;
+}
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-link:hover,
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown-items .c-sidebar-nav-link:hover {
+  color: #0f766e !important;
+}
+/* el toggle del desplegable abierto SÍ va con acento (lo demas neutro) */
+body:not(.pes-sidebar-classic) .c-sidebar.c-sidebar-light .c-sidebar-nav-dropdown.c-show > .c-sidebar-nav-dropdown-toggle {
+  color: #0f766e !important;
+}
+
 body:not(.pes-sidebar-classic) .c-main .btn-primary {
   background: var(--pes-primary);
   border-color: var(--pes-primary);
