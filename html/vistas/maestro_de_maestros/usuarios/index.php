@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    if (!isset($_SESSION["correo_usuario"])) {
-        header("location: ../../../login.php");
-        exit;
-    }
+    require __DIR__ . '/../../../includes/require_admin.php';
 
     include_once("../../../includes/header.php");
     require '../../../includes/db_connect.php';

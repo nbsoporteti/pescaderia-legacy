@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__ . '/../../../includes/require_admin.php';
 require '../../../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
