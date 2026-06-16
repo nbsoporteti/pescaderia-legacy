@@ -127,7 +127,7 @@
                                         FROM embarcaciones2 
                                         WHERE estado = 1 
                                         AND eliminado = 0 
-                                        AND FIND_IN_SET(id_embarcacion2, (SELECT embarcacion FROM proveedores WHERE id_proveedor = $proveedor)) > 0
+                                        ORDER BY nombre_embarcacion2 ASC
                                     ";                                
                                     $resultado_embarcacion2 = mysqli_query($connect, $sql_embarcacion2);
                                     while ($row = mysqli_fetch_assoc($resultado_embarcacion2)) {
@@ -397,6 +397,11 @@
                                 );
                             });
                             $embarcacionSelect.prop('disabled', false);
+                            // #5 cascada inversa: si veniamos de elegir una embarcacion, re-seleccionarla
+                            if (window.pesPreselectEmb) {
+                                $embarcacionSelect.val(window.pesPreselectEmb).trigger('change.select2');
+                                window.pesPreselectEmb = null;
+                            }
                         } else {
                             $('#guardar').prop('disabled', true);
                             Swal.fire('Error', 'No hay embarcaciones disponibles para este proveedor. <br><br>Para continuar debe asociar una Embarcación al Proveedor seleccionado.', 'error');
@@ -425,6 +430,25 @@
             } else {
                 $(`#proveedor`).prop('disabled', false).val(0);
             }
+        });
+
+        // #5 cascada inversa: elegir una embarcacion autoselecciona su proveedor (si es unico)
+        $(document).on('change', '#embarcacion2', function() {
+            var emb = $(this).val();
+            if (!emb || emb == 0) return;
+            if ($('#proveedor').length && $('#proveedor').val() != 0) return; // proveedor ya elegido, no pisar
+            $.ajax({
+                url: 'obtener_proveedor_por_embarcacion.php',
+                method: 'POST',
+                data: { id_embarcacion2: emb },
+                dataType: 'json',
+                success: function(res) {
+                    if (res && res.length === 1) {
+                        window.pesPreselectEmb = emb;
+                        $('#proveedor').val(res[0].id_proveedor).trigger('change');
+                    }
+                }
+            });
         });
 
         $(document).on('input', '.cheques-cantidad', function() {
