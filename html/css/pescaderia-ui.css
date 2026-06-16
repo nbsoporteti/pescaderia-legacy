@@ -191,8 +191,23 @@ body:not(.pes-sidebar-classic) .pes-hint {
 body:not(.pes-sidebar-classic) .pes-table-wrap {
   border-radius: var(--pes-radius-sm);
   border: 1px solid var(--pes-border);
-  overflow: hidden;
+  /* Antes: overflow: hidden  -> recortaba tablas anchas (scroll horizontal "invisible").
+     Ahora: scroll horizontal visible, conservando esquinas redondeadas. */
+  overflow-x: auto;
+  overflow-y: hidden;
   background: var(--pes-surface);
+}
+
+/* Scrollbar horizontal visible para las tablas (tema moderno) */
+body:not(.pes-sidebar-classic) .pes-table-wrap::-webkit-scrollbar {
+  height: 10px;
+}
+body:not(.pes-sidebar-classic) .pes-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--pes-border);
+  border-radius: 6px;
+}
+body:not(.pes-sidebar-classic) .pes-table-wrap::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 body:not(.pes-sidebar-classic) .pes-table.table {
