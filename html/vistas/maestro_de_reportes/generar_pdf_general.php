@@ -405,6 +405,32 @@ if ((!empty($_POST['export_mode']) && $_POST['export_mode'] === 'filters') || !e
         $pdf->WriteHTML($etiqueta);
         $pdf->Ln(6);
 
+        // Datos extra del proveedor (RUT, telefono, embarcacion) bajo el nombre
+        if ($info['tipo'] === 'Proveedor') {
+            $provId = (int)($info['movs'][0]['proveedor'] ?? 0);
+            if ($provId > 0) {
+                $rp = mysqli_query($connect, "SELECT rut_proveedor, telefono_proveedor, domicilio_proveedor, embarcacion FROM proveedores WHERE id_proveedor = $provId");
+                if ($rp && ($pInfo = mysqli_fetch_assoc($rp))) {
+                    $embNames = '';
+                    $embCsvSafe = preg_replace('/[^0-9,]/', '', (string)$pInfo['embarcacion']);
+                    if ($embCsvSafe !== '') {
+                        $re = mysqli_query($connect, "SELECT nombre_embarcacion2 FROM embarcaciones2 WHERE id_embarcacion2 IN ($embCsvSafe) AND eliminado = 0 ORDER BY nombre_embarcacion2");
+                        $names = [];
+                        while ($re && ($row = mysqli_fetch_assoc($re))) { $names[] = $row['nombre_embarcacion2']; }
+                        $embNames = implode(', ', $names);
+                    }
+                    $linea = 'RUT: ' . ($pInfo['rut_proveedor'] ?: '-')
+                           . '     Telefono: ' . ($pInfo['telefono_proveedor'] ?: '-');
+                    if ($embNames !== '') {
+                        $linea .= '     Embarcacion: ' . $embNames;
+                    }
+                    $pdf->SetFont('Arial', '', 9);
+                    $pdf->MultiCell($usableW, 5, $linea, 0, 'L');
+                    $pdf->Ln(2);
+                }
+            }
+        }
+
         // cabecera de tabla
         $tableHeader($showGasto);
 
