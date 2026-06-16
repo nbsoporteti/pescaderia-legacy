@@ -15,7 +15,7 @@
     <script src="<?=$base_home?>vendors/@coreui/utils/js/coreui-utils.js"></script>
 
   
-<script src="<?=$base_home?>js/pes-sidebar-theme.js?v=1.2"></script>
+<script src="<?=$base_home?>js/pes-sidebar-theme.js?v=1.3"></script>
 
 <script src="<?=$base_home?>js/pes-ui-collapse.js?v=1.1"></script>
 </body>

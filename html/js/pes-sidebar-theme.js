@@ -26,14 +26,17 @@
 
   function setClassic(enabled) {
     var link = uiStylesheet();
+    var sb = document.getElementById("sidebar");
     if (enabled) {
       root.classList.add("pes-sidebar-classic");
       if (body) body.classList.add("pes-sidebar-classic");
       if (link) link.disabled = true;
+      if (sb) { sb.classList.remove("c-sidebar-light"); sb.classList.add("c-sidebar-dark"); }
     } else {
       root.classList.remove("pes-sidebar-classic");
       if (body) body.classList.remove("pes-sidebar-classic");
       if (link) link.disabled = false;
+      if (sb) { sb.classList.remove("c-sidebar-dark"); sb.classList.add("c-sidebar-light"); }
     }
   }
 
@@ -104,10 +107,10 @@
     }
   }
 
-  if (readStored() === "classic") {
-    apply("classic", true);
+  if (readStored() === "modern") {
+    apply("modern", true);
   } else {
-    updateUi(false);
+    apply("classic", true);
   }
 
   var btn = document.getElementById("pes-theme-toggle");

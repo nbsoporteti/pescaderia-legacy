@@ -24,7 +24,7 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
     <link href="<?=$base_home?>css/pes-theme-toggle.css?v=1.1" rel="stylesheet">
     <link href="<?=$base_home?>css/pes-collapse.css?v=1.1" rel="stylesheet">
     <script>
-(function(){try{var c=localStorage.getItem('pes-sidebar-theme')==='classic';if(c){document.documentElement.classList.add('pes-sidebar-classic');var l=document.getElementById('pes-ui-css');if(l)l.disabled=true;}}catch(e){}})();
+(function(){try{var c=localStorage.getItem('pes-sidebar-theme')!=='modern';if(c){document.documentElement.classList.add('pes-sidebar-classic');var l=document.getElementById('pes-ui-css');if(l)l.disabled=true;}}catch(e){}})();
 </script>
 
     <script src="<?=$base_home?>vendors/jquery/jquery.min.js"></script>
@@ -50,7 +50,7 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
   </style>
   </head>
   <body class="c-app">
-<div class="c-sidebar c-sidebar-light c-sidebar-fixed c-sidebar-lg-hide c-sidebar-lg-show" id="sidebar">
+<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-hide c-sidebar-lg-show" id="sidebar">
     <!-- <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-hide" id="sidebar"> -->
       <div class="c-sidebar-brand d-lg-down-none">SISTEMA
         <!-- <img src="<?=$base_home?>assets/img/logo_geret.png" style="width: 100px;height:40px;" alt="Geret" /> -->
