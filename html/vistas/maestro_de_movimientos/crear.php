@@ -100,8 +100,16 @@
 
                             <div class="form-group col-lg-3">
                                 <label for="embarcacion2" class="text-gray-600">Embarcación</label>
-                                <select class="form-control" name="embarcacion2" id="embarcacion2" required disabled>
+                                <select class="form-control" name="embarcacion2" id="embarcacion2" required>
                                     <option selected value="0">Seleccionar</option>
+                                    <?php
+                                    // #5 cascada inversa: listar TODAS las embarcaciones para poder elegir una primero.
+                                    $sql_emb2 = "SELECT id_embarcacion2, nombre_embarcacion2 FROM embarcaciones2 WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_embarcacion2 ASC";
+                                    $res_emb2 = mysqli_query($connect, $sql_emb2);
+                                    while($row = mysqli_fetch_assoc($res_emb2)){
+                                        echo '<option value="'.$row['id_embarcacion2'].'">'.$row['nombre_embarcacion2'].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </div>
 
@@ -279,6 +287,11 @@
                                 );
                             });
                             $embarcacionSelect.prop('disabled', false);
+                            // #5 cascada inversa: si veniamos de elegir una embarcacion, re-seleccionarla
+                            if (window.pesPreselectEmb) {
+                                $embarcacionSelect.val(window.pesPreselectEmb).trigger('change.select2');
+                                window.pesPreselectEmb = null;
+                            }
                         } else {
                             $('#guardar').prop('disabled', true);
                             Swal.fire('Error', 'No hay embarcaciones disponibles para este proveedor. <br><br>Para continuar debe asociar una Embarcación al Proveedor seleccionado.', 'error');
@@ -311,6 +324,25 @@
                 $('#total_final').val('');
                 $(`#proveedor`).prop('disabled', false).val(0);
             }
+        });
+
+        // #5 cascada inversa: elegir una embarcacion autoselecciona su proveedor (si es unico)
+        $(document).on('change', '#embarcacion2', function() {
+            var emb = $(this).val();
+            if (!emb || emb == 0) return;
+            if ($('#proveedor').length && $('#proveedor').val() != 0) return; // proveedor ya elegido, no pisar
+            $.ajax({
+                url: 'obtener_proveedor_por_embarcacion.php',
+                method: 'POST',
+                data: { id_embarcacion2: emb },
+                dataType: 'json',
+                success: function(res) {
+                    if (res && res.length === 1) {
+                        window.pesPreselectEmb = emb; // para re-seleccionar tras el repoblado del proveedor
+                        $('#proveedor').val(res[0].id_proveedor).trigger('change');
+                    }
+                }
+            });
         });
 
         $(document).on('click', '#agregar-fila', function() {
