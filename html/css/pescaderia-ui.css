@@ -481,6 +481,21 @@ body:not(.pes-sidebar-classic) .c-main .btn-info:hover {
   background: #0e7490; border-color: #0e7490; color: #fff;
 }
 
+/* Botones de accion dentro de tablas: compactos y en una sola linea (no parten en 2 filas) */
+body:not(.pes-sidebar-classic) .pes-table td:last-child {
+  white-space: nowrap;
+}
+body:not(.pes-sidebar-classic) .pes-table td .btn {
+  padding: 0.2rem 0.5rem !important;
+  font-size: 0.72rem !important;
+  margin: 1px 1px;
+  vertical-align: middle;
+}
+body:not(.pes-sidebar-classic) .pes-table td .btn .fa,
+body:not(.pes-sidebar-classic) .pes-table td .btn .fas {
+  font-size: 0.72rem;
+}
+
 /* DataTables */
 body:not(.pes-sidebar-classic) div.dataTables_wrapper {
   padding-top: 0.15rem;

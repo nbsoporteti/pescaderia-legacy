@@ -20,7 +20,7 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
     <!-- <link rel="icon" href="<?=$base_home?>assets/img/geret_2.ico" type="image/svg+xml" /> -->
     <meta name="theme-color" content="#ffffff">
     <link href="<?=$base_home?>css/style.css?v=1.0" rel="stylesheet">
-    <link id="pes-ui-css" href="<?=$base_home?>css/pescaderia-ui.css?v=2.7" rel="stylesheet">
+    <link id="pes-ui-css" href="<?=$base_home?>css/pescaderia-ui.css?v=2.8" rel="stylesheet">
     <link href="<?=$base_home?>css/pes-theme-toggle.css?v=1.1" rel="stylesheet">
     <link href="<?=$base_home?>css/pes-collapse.css?v=1.1" rel="stylesheet">
     <script>
