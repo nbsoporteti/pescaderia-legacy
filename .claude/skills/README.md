@@ -6,15 +6,22 @@ disponibles en cualquier sesión (incluyendo Claude Code en la web).
 
 ## Procedencia
 
-Estas skills provienen del proyecto **Superpowers** de Jesse Vincent:
+Las skills aquí provienen de dos fuentes distintas. Todas se copiaron tal
+cual desde su upstream, sin modificar su contenido.
+
+### Superpowers (la mayoría)
 
 - Repositorio: https://github.com/obra/superpowers
 - Versión: `5.1.0`
 - Commit de origen: `8cf3900` (2026-06-15)
 - Licencia: MIT — ver [`LICENSE-superpowers`](./LICENSE-superpowers)
 
-Se copiaron tal cual desde `skills/` del repositorio upstream. No se
-modificó su contenido.
+### frontend-design (de Claude Code)
+
+- Repositorio: https://github.com/anthropics/claude-code
+- Ruta upstream: `plugins/frontend-design/skills/frontend-design`
+- Commit de origen: `64ceb97` (2026-06-15)
+- Licencia: © Anthropic PBC — uso sujeto a los [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) de Anthropic
 
 ## Skills incluidas
 
@@ -34,17 +41,26 @@ modificó su contenido.
 | `subagent-driven-development` | Ejecutar planes con subagentes en la sesión actual |
 | `finishing-a-development-branch` | Cerrar una rama: merge / PR / limpieza |
 | `writing-skills` | Crear, editar y verificar skills nuevas |
+| `frontend-design` | Crear interfaces frontend distintivas y de alta calidad (de Claude Code) |
 
 ## Cómo actualizar
 
 Para traer una versión más nueva desde upstream:
 
 ```bash
+# Superpowers
 git clone --depth 1 https://github.com/obra/superpowers /tmp/superpowers
 cp -R /tmp/superpowers/skills/. .claude/skills/
 cp /tmp/superpowers/LICENSE .claude/skills/LICENSE-superpowers
-# luego actualiza la versión y el commit indicados arriba
+
+# frontend-design (de Claude Code)
+git clone --depth 1 https://github.com/anthropics/claude-code /tmp/claude-code
+cp -R /tmp/claude-code/plugins/frontend-design/skills/frontend-design .claude/skills/
+
+# luego actualiza las versiones y commits indicados arriba
 ```
 
-Alternativa (en tu Claude Code local, no en la web): instalarlas como plugin
-con `/plugin marketplace add obra/superpowers` y `/plugin install superpowers`.
+Alternativa (en tu Claude Code local, no en la web): instalarlas como plugins
+con `/plugin marketplace add obra/superpowers` (+ `/plugin install superpowers`)
+y `/plugin marketplace add anthropics/claude-code` (+ `/plugin install
+frontend-design`).
