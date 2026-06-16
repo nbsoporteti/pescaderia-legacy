@@ -75,6 +75,37 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 
+<!-- #2: Select2 (ya cargado arriba) — buscador en todos los selects del sistema -->
+<script>
+  $(function () {
+    if (!window.jQuery || !$.fn.select2) return;
+
+    function pesApplySelect2($s) {
+      if ($s.closest('.dataTables_wrapper').length) return; // no tocar selects internos de DataTables
+      if ($s.hasClass('no-select2')) return;
+      if ($s.data('select2')) return;
+      $s.select2({
+        width: '100%',
+        language: {
+          noResults: function () { return 'Sin resultados'; },
+          searching: function () { return 'Buscando…'; }
+        }
+      });
+      // Cascada: re-sincroniza Select2 cuando el <select> cambia disabled u opciones
+      // (repoblado por AJAX), sin disparar otros handlers. Evita romper proveedor↔embarcacion↔trabajador.
+      try {
+        var obs = new MutationObserver(function () { $s.trigger('change.select2'); });
+        obs.observe($s[0], { attributes: true, attributeFilter: ['disabled'], childList: true });
+      } catch (e) {}
+    }
+
+    window.pesInitSelect2 = function (root) {
+      $(root || document).find('select').each(function () { pesApplySelect2($(this)); });
+    };
+    window.pesInitSelect2(document);
+  });
+</script>
+
 </body>
 
 </html>

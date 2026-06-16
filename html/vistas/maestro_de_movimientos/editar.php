@@ -88,7 +88,7 @@
                                 <select class="form-control" name="embarcacion" id="embarcacion" required>
                                     <option selected value="0">Seleccionar</option>
                                     <?php 
-                                    $sql_embarcaciones = "SELECT * FROM embarcaciones WHERE estado = 1 AND eliminado = 0";
+                                    $sql_embarcaciones = "SELECT * FROM embarcaciones WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_embarcacion ASC";
                                     $resultado_embarcaciones = mysqli_query($connect, $sql_embarcaciones);
                                     while ($row = mysqli_fetch_assoc($resultado_embarcaciones)) {
                                         $selected = ($row['id_embarcacion'] == $embarcacion) ? 'selected' : '';
@@ -107,7 +107,7 @@
                                 <select class="form-control" name="proveedor" id="proveedor" <?php echo $option_proveedor; ?>>
                                     <option selected value="0">Seleccionar</option>
                                     <?php
-                                    $sql_proveedores = "SELECT * FROM proveedores WHERE estado = 1 AND eliminado = 0";
+                                    $sql_proveedores = "SELECT * FROM proveedores WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_proveedor ASC";
                                     $resultado_proveedores = mysqli_query($connect, $sql_proveedores);
                                     while ($row = mysqli_fetch_assoc($resultado_proveedores)) {
                                         $selected = ($row['id_proveedor'] == $proveedor) ? 'selected' : '';
@@ -151,7 +151,7 @@
                                 <select class="form-control" name="trabajador" id="trabajador" <?php echo $option_trabajador; ?>>
                                     <option selected value="0">Seleccionar</option>
                                     <?php 
-                                    $sql_trabajadores = "SELECT * FROM trabajadores WHERE estado = 1 AND eliminado = 0";
+                                    $sql_trabajadores = "SELECT * FROM trabajadores WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_trabajador ASC";
                                     $resultado_trabajadores = mysqli_query($connect, $sql_trabajadores);
                                     while ($row = mysqli_fetch_assoc($resultado_trabajadores)) {
                                         $selected = ($row['id_trabajador'] == $trabajador) ? 'selected' : '';

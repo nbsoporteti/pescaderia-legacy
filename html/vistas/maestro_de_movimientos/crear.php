@@ -72,7 +72,7 @@
                                     <option selected value="0">Seleccionar</option>
                                     <?php 
                                     require '../../includes/db_connect.php';
-                                    $sql = "SELECT * FROM embarcaciones WHERE estado = 1 AND eliminado = 0";
+                                    $sql = "SELECT * FROM embarcaciones WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_embarcacion ASC";
                                     $resultado = mysqli_query($connect, $sql) or die("Error: " . mysqli_error($connect));
                                     while($row = mysqli_fetch_assoc($resultado)){
                                         echo '<option value="'.$row['id_embarcacion'].'">'.$row['nombre_embarcacion'].'</option>';
@@ -111,7 +111,7 @@
                                     <option selected value="0">Seleccionar</option>
                                     <?php 
                                     require '../../includes/db_connect.php';
-                                    $sql = "SELECT * FROM trabajadores WHERE estado = 1 AND eliminado = 0";
+                                    $sql = "SELECT * FROM trabajadores WHERE estado = 1 AND eliminado = 0 ORDER BY nombre_trabajador ASC";
                                     $resultado = mysqli_query($connect, $sql) or die("Error: " . mysqli_error($connect));
                                     while($row = mysqli_fetch_assoc($resultado)){
                                         echo '<option value="'.$row['id_trabajador'].'">'.$row['nombre_trabajador'].'</option>';
