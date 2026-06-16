@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="form-group col-lg-2">
                                 <label for="fecha" class="text-gray-600">Fecha</label>
-                                <input type="date" class="form-control" id="fecha" name="fecha" required />
+                                <input type="date" class="form-control" id="fecha" name="fecha" min="2020-01-01" max="<?php echo (date('Y') + 1); ?>-12-31" required />
                             </div>
 
                             <div class="form-group col-lg-2">

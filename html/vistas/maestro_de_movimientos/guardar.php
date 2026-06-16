@@ -17,6 +17,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $tipo_movimiento = $formData['tipo_movimiento'];
     $fecha = $formData['fecha'];
+
+    // Validacion de fecha: evita anios imposibles (ej. 0025, 2055) y fechas inexistentes.
+    $fechaObj = DateTime::createFromFormat('Y-m-d', $fecha);
+    $anioMax = (int)date('Y') + 1;
+    if (!$fechaObj || $fechaObj->format('Y-m-d') !== $fecha
+        || (int)$fechaObj->format('Y') < 2020 || (int)$fechaObj->format('Y') > $anioMax) {
+        echo json_encode([
+            'status' => 'error',
+            'message' => "Fecha del movimiento invalida. Debe ser una fecha real entre 2020 y $anioMax."
+        ]);
+        exit;
+    }
+
     $embarcacion = $formData['embarcacion'];
 
     $proveedor = $formData['proveedor'];
