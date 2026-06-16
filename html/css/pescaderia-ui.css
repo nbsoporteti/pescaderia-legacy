@@ -295,9 +295,10 @@ body:not(.pes-sidebar-classic) .pes-badge-otro {
 /* Acciones */
 body:not(.pes-sidebar-classic) .pes-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 0.25rem;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 body:not(.pes-sidebar-classic) .pes-actions .btn {
@@ -310,6 +311,35 @@ body:not(.pes-sidebar-classic) .pes-actions .btn {
 
 body:not(.pes-sidebar-classic) .pes-actions .btn:hover {
   transform: none;
+}
+
+/* Acciones (Ver/Editar/Eliminar): colores suaves alineados al tema moderno */
+body:not(.pes-sidebar-classic) .pes-actions .btn-primary {
+  background: #eef2ff !important;
+  border-color: #e0e7ff !important;
+  color: #4f46e5 !important;
+}
+body:not(.pes-sidebar-classic) .pes-actions .btn-primary:hover {
+  background: #e0e7ff !important;
+  color: #4338ca !important;
+}
+body:not(.pes-sidebar-classic) .pes-actions .btn-warning {
+  background: #fff7ed !important;
+  border-color: #fed7aa !important;
+  color: #b45309 !important;
+}
+body:not(.pes-sidebar-classic) .pes-actions .btn-warning:hover {
+  background: #ffedd5 !important;
+  color: #92400e !important;
+}
+body:not(.pes-sidebar-classic) .pes-actions .btn-danger {
+  background: #fef2f2 !important;
+  border-color: #fecaca !important;
+  color: #dc2626 !important;
+}
+body:not(.pes-sidebar-classic) .pes-actions .btn-danger:hover {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
 }
 
 body:not(.pes-sidebar-classic) .c-main .btn-primary {
