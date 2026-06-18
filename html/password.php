@@ -68,6 +68,12 @@ if (isset($_POST['cambiar'])) {
 include_once("includes/header.php");
 ?>
 
+<style>
+    .pes-strength-bar { height:6px; background:#e5e7eb; border-radius:4px; overflow:hidden; margin-bottom:3px; }
+    .pes-strength-bar span { display:block; height:100%; width:0; border-radius:4px; transition:width .2s ease, background .2s ease; }
+    .pes-strength-label { font-weight:600; font-size:.78rem; }
+</style>
+
 <div class="container-fluid px-4">
 
     <div class="pes-page-header"><h1 class="h3 mb-0">Cambiar contraseña</h1>
@@ -96,6 +102,10 @@ include_once("includes/header.php");
                         <div class="form-group">
                             <label for="nueva" class="text-gray-600 font-weight-bold">Nueva contraseña</label>
                             <input type="password" class="form-control pes-pwd" id="nueva" name="nueva" minlength="6" autocomplete="new-password" required>
+                            <div class="pes-strength mt-1" id="pes-strength" style="display:none">
+                                <div class="pes-strength-bar"><span id="pes-strength-fill"></span></div>
+                                <small class="pes-strength-label" id="pes-strength-label"></small>
+                            </div>
                             <small class="form-text text-muted">Mínimo 6 caracteres. Debe ser distinta de la actual.</small>
                         </div>
                         <div class="form-group">
@@ -124,9 +134,35 @@ include_once("includes/footer.php");
 ?>
 
 <script>
+    // Estimacion simple de fortaleza (orientativa, no bloquea): longitud + variedad de caracteres
+    function pesPwScore(pw) {
+        if (!pw) return 0;
+        var s = 0;
+        if (pw.length >= 6) s++;
+        if (pw.length >= 10) s++;
+        if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) s++;
+        if (/\d/.test(pw)) s++;
+        if (/[^A-Za-z0-9]/.test(pw)) s++;
+        return s; // 0..5
+    }
+    function pesPwLevel(s) {
+        if (s <= 1) return { pct: 20,  color: '#dc2626', label: 'Muy débil' };
+        if (s === 2) return { pct: 40,  color: '#f59e0b', label: 'Débil' };
+        if (s === 3) return { pct: 65,  color: '#eab308', label: 'Media' };
+        if (s === 4) return { pct: 85,  color: '#16a34a', label: 'Fuerte' };
+        return            { pct: 100, color: '#15803d', label: 'Muy fuerte' };
+    }
     $(function () {
         $('#mostrar').on('change', function () {
             $('.pes-pwd').attr('type', this.checked ? 'text' : 'password');
+        });
+        $('#nueva').on('input', function () {
+            var v = this.value, box = $('#pes-strength');
+            if (!v) { box.hide(); return; }
+            box.show();
+            var lv = pesPwLevel(pesPwScore(v));
+            $('#pes-strength-fill').css({ width: lv.pct + '%', background: lv.color });
+            $('#pes-strength-label').text('Seguridad: ' + lv.label).css('color', lv.color);
         });
         $('#form-password').on('submit', function (e) {
             var n = $('#nueva').val(), r = $('#repetir').val();
