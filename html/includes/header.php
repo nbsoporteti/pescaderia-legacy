@@ -195,6 +195,15 @@ $apellido = explode(" ", $_SESSION['apellido_usuario'], 2);
           </a>
         </li>
 
+        <li class="c-sidebar-nav-item">
+          <a class="c-sidebar-nav-link" href="<?=$base_home?>manual.php">
+            <svg class="c-sidebar-nav-icon">
+              <use xlink:href="<?=$base_home?>vendors/@coreui/icons/svg/free.svg#cil-book"></use>
+            </svg>
+            Manual de usuario
+          </a>
+        </li>
+
       </ul>
 
 <div class="pes-sidebar-footer">

@@ -7,6 +7,8 @@
 html/includes/db_connect.php
 html/**/*.bak*
 html/**/*.log
+# Capturas del manual de usuario: se sirven desde el servidor, fuera de git (contienen datos reales: RUTs, correos, montos).
+html/assets/manual/*.png
 
 mysql-init/*
 !mysql-init/.gitkeep
