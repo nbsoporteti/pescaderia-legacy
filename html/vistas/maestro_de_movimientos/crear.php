@@ -320,9 +320,14 @@
                 $('#eliminar-fila').show();
                 $('#div_total_final').show();
                 $(`#proveedor`).prop('disabled', true).val(0);
+                // Movimiento de trabajador: la Embarcacion no corresponde -> bloquearla en 0
+                // (consistente con los movimientos de trabajador existentes, que guardan embarcacion2 = 0).
+                $('#embarcacion2').prop('disabled', true).val(0).trigger('change.select2');
             } else {
                 $('#total_final').val('');
                 $(`#proveedor`).prop('disabled', false).val(0);
+                // Sin trabajador: re-habilitar la Embarcacion (la maneja el flujo de proveedor).
+                $('#embarcacion2').prop('disabled', false).trigger('change.select2');
             }
         });
 
