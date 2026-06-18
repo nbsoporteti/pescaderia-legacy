@@ -3,7 +3,12 @@
 
     session_start();
     if (!isset($_SESSION["correo_usuario"])) {
-        header("location: ../../login.php");
+        // Peticion AJAX: devolver JSON claro en vez de redirigir a login (que rompia el JSON.parse).
+        header('Content-Type: application/json');
+        echo json_encode([
+            'status' => 'error',
+            'message' => 'Tu sesión expiró. Recargá la página (F5) e iniciá sesión de nuevo para guardar los cambios.'
+        ]);
         exit;
     }
 
